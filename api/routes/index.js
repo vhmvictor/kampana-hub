@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 //TESTE DO SERVIDOR
-router.get("/hello", (req, res, next) => {
+router.get("/", (req, res, next) => {
     res.json({ message: 'Hello Express' });
 });
 
