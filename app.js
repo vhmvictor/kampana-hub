@@ -1,24 +1,23 @@
-const express = require('express');
+const axios = require('axios');
+const express = require("express");
 const app = express();
-const path = require('path');
+const cors = require("cors");
 const dotenv = require("dotenv");
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
 
 dotenv.config();
-
-app.use(cors());
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
-app.use('/', require('./api/routes/index'));
-
-app.listen(process.env.URL_PORT || 3000, () => {
-  console.log('Express - API listening on port ' + process.env.URL_PORT || 3000 + '!');
+//TESTE DO SERVIDOR
+app.get("/hello", (request, response) => {
+    response.json({ message: 'Hello, Kampana-Hub!' })
 });
-
-module.exports = app;
+//
+app.post("/leads", async (req, res, next) => {
+  console.log(req.body);
+  return res.status(200).send('Ok');
+});
+//
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Servidor iniciado!");
+});
