@@ -11,7 +11,7 @@ mongoose.connect(uri, {
     useFindAndModify: false,
     useCreateIndex: true,
 }, (req, res) => {
-    console.log("Connected database!");
+    console.log("Banco de dados conectado!");
 });
 
 module.exports = mongoose;

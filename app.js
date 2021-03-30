@@ -17,6 +17,7 @@ app.get("/hello", (request, response) => {
 
 app.post("/leads", async (req, res, next) => {
   const lead = req.body.leads[0];
+  console.log(lead);
 
   const obj = {
     rd_id: lead.id,
@@ -27,18 +28,19 @@ app.post("/leads", async (req, res, next) => {
 
   try {
     const query = { rd_id: lead.id };
-    const upsert_lead = await Lead.findOneAndUpdate(query, obj);
 
-    console.log("Upsert Lead successfully");
+    const upsert_lead = await Lead.findOneAndUpdate(query, obj, {
+      upsert: true,
+    });
+
     return res.send({ upsert_lead });
   } catch(err) {
     console.log(err);
-
     return res.status(400).send({ error: "Upsert lead failed" });
   }
 
 });
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log("Connected server!");
+    console.log("Servidor iniciado!");
 });
